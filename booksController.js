@@ -7,6 +7,11 @@ exports.getAllBooks = (req, res) => {
   res.send(books);
 };
 
+exports.deleteAllBooks = (req, res) => {
+    books = [];
+    res.send(books);
+  };
+
 exports.addBook = (req, res) => {
   // store request body in a variable
   // req body conatains todo object
@@ -21,7 +26,7 @@ exports.addBook = (req, res) => {
 
 exports.getBookById = (req, res, next) => {
   const id = req.params.id;
-  const book = books.find((book) => (book.id = parseInt(id)));
+  const book = books.find((book) => (book.id == parseInt(id)));
   if (book) {
     res.send(book);
   } else {
@@ -37,8 +42,9 @@ exports.deleteBook = (req, res) => {
   res.send(books);
 };
 
+
 exports.updateBook = (req, res) => {
-  const { title, completed } = req.body;
+  const { title, author, read } = req.body;
   const id = req.params.id;
 
   const book = books.filter((book) => book.id == parseInt(id));
@@ -51,7 +57,8 @@ exports.updateBook = (req, res) => {
         return {
             ...book,
           title: title || book.title,
-          completed: completed || book.completed,
+          author: author || book.author,
+          read: read || book.read,
         };
       }
       return book;
