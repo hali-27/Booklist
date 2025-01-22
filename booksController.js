@@ -12,9 +12,15 @@ exports.getAllBooks = async (req, res) => {
 };
 
 //make async and deal with database
-exports.deleteAllBooks = (req, res) => {
-  books = [];
-  res.send(books);
+exports.deleteAllBooks = async (req, res) => {
+  try {
+    const books = await Book.deleteMany();
+    return res.status(200).json({
+      message: "All books successfully deleted",
+    });
+  } catch (error) {
+    next(createError(500, error.message));
+  }
 };
 
 exports.addBook = async (req, res) => {
@@ -44,17 +50,22 @@ exports.getBookById = async (req, res, next) => {
   }
 };
 
-exports.deleteBook = async (req, res) => {
+exports.deleteBook = async (req, res, next) => {
   try {
     const book = await Book.findByIdAndDelete(req.params.id);
 
     if (!book) {
       return next(createError(404, "no book with that id"));
     }
-    res.send(books);
+    // Send a success response to the client
+    return res.status(200).json({
+      message: "Book successfully deleted",
+      deletedBook: book, // Optionally include deleted book details
+    });
   } catch (error) {
     next(createError(500, error.message));
   }
+  //notification that book successfully deleted
 };
 
 exports.updateBook = async (req, res, next) => {
@@ -78,9 +89,3 @@ exports.updateBook = async (req, res, next) => {
   }
   res.send(todos);
 };
-
-
-
-  
-
-  
