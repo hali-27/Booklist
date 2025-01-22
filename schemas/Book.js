@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const isRead = true;
+// const isRead = true;
 
-const status = isRead === true ? "read" : "unread";
+// const status = isRead === true ? "read" : "unread";
 
 
 const bookSchema = new mongoose.Schema({
@@ -15,8 +15,8 @@ const bookSchema = new mongoose.Schema({
         required: [true, "Please enter an author for your book."]
     },
     read: {
-    type: Boolean,
-    default: false
+    type: String,
+    default: "unread"
     }
 })
 
