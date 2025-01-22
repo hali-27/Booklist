@@ -29,7 +29,7 @@ exports.addBook = async (req, res) => {
     const newBook = await Book.create({
       title,
       author,
-      read: Boolean(read),
+      read,
     });
     res.send(newBook);
   } catch (error) {
