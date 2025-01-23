@@ -105,5 +105,5 @@ exports.updateBook = async (req, res, next) => {
   } catch (error) {
     next(createError(500, error.message));
   }
-  res.send(todos);
+ 
 };
