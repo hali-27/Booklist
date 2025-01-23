@@ -68,6 +68,24 @@ exports.deleteBook = async (req, res, next) => {
   //notification that book successfully deleted
 };
 
+exports.deleteBookByTitle = async (req, res, next) => {
+  try {
+    const { title } = req.params; // Extracting title from route parameters
+    const book = await Book.deleteOne({ title: title });
+    if (!book) {
+      return next(createError(404, "no book with that title"));
+    }
+    // Send a success response to the client
+    return res.status(200).json({
+      message: "Book successfully deleted",
+      deletedBook: book, // Optionally include deleted book details
+    });
+  } catch (error) {
+    next(createError(500, error.message));
+  }
+  //notification that book successfully deleted
+};
+
 exports.updateBook = async (req, res, next) => {
   try {
     const { title, author, read } = req.body;
