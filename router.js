@@ -9,7 +9,7 @@ router.get("/books/:id", books.getBookById);
 router.delete("/books/:id", books.deleteBook);
 router.put("/books/:id", books.updateBook);
 router.delete("/books", books.deleteAllBooks);  
-
+router.delete("/books/bytitle/:title", books.deleteBookByTitle); 
 
 module.exports = router;
 
